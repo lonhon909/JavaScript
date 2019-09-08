@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <div class="box-1">
+      <div class="box-1-1"></div>
+      <div class="box-1-2">
+        <div class="box-1-2-1"></div>
+        <div class="box-1-2-2"></div>
+        <div class="box-1-2-3"></div>
+      </div>
+    </div>
+    <div class="box-2">
+      <div class="box-2-1"></div>
+      <div class="box-2-2">
+        <div class="box-2-2-1"></div>
+        <div class="box-2-2-2"></div>
+      </div>
+      <div class="box-2-3"></div>
+      <div class="box-2-4">
+        <div class="box-2-4-1"></div>
+      </div>
+    </div>
+    <div class="box-3"></div>
+    <div class="box-4">
+      <div class="box-4-1"></div>
+      <div class="box-4-2"></div>
+    </div>
+  </div>
+
+  <script>
+    // 深度优先遍历
+
+    function Vnode(node, nodeList = []) {
+      if (node) {
+        nodeList.push(node)
+        const children = node.children || [];
+        ;[...children].forEach(item => Vnode(item, nodeList))
+      }
+      return nodeList
+    }
+    console.log(Vnode(document.getElementById('root')))
+  </script>
+</body>
+</html>

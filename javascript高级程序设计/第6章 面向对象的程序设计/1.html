@@ -1,0 +1,49 @@
+<script>
+
+// 'use strict'
+
+const person = {
+  haha: 100
+};
+  Object.defineProperty(person, 'name', {
+    value: 2,
+    configurable: false,
+    enumerable: false,
+    writable: true
+  })
+
+  console.log(Object.keys(person), Object.values(person))
+
+  for(let key in person) {
+    console.log(`${key}=${person[key]}`)
+  }
+
+  // Object.defineProperty(person, 'name', {
+  //   value: 4,
+  //   // configurable: false,
+  //   writable: true
+  // })
+  // // person.name = ''
+
+  // Object.defineProperty(person, 'name', {
+  //   value: 5,
+  //   // configurable: true,
+  //   writable: false
+  // })
+  // Object.defineProperty(person, 'name', {
+  //   // value: 6,
+  //   // configurable: true,
+  //   writable: true
+  // })
+
+
+  // person.name = 100;
+  // delete person.name
+  console.log(person)
+
+  // console.log(Object.getOwnPropertyDescriptor(person, 'name'))
+
+
+  // person.name = 10000
+  // console.log(person)
+</script>

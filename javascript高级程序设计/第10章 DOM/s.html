@@ -1,0 +1,52 @@
+<script>
+  jiaoyiTongji = {
+    "01": {
+      "receiptAmount": 20.03,
+      "refundCount": 2,
+      "orderAmount": 0.05,
+      "disCountAmount": 0.00,
+      "payType": "01",
+      "merchFavourable": -9.99,
+      "COUNT": 5,
+      "refundMoney": 9.99
+    },
+    "02": {
+      "receiptAmount": 20.03,
+      "refundCount": 2,
+      "orderAmount": 0.05,
+      "disCountAmount": 0.00,
+      "payType": "01",
+      "merchFavourable": -9.99,
+      "COUNT": 5,
+      "refundMoney": 9.99
+    }
+  }
+  var obj = {}
+
+  Object.keys(jiaoyiTongji).forEach(item => {
+    for(let key in jiaoyiTongji[item]) {
+      if (key === 'receiptAmount' && obj[key]) {
+        obj[key] += jiaoyiTongji[item][key]
+      } else {
+        obj[key] = jiaoyiTongji[item][key]
+      }
+    }
+  })
+
+
+  // for (let key in jiaoyiTongji) {
+  //   for (let i in jiaoyiTongji[key]) {
+  //     if (i == 'receiptAmount') {
+  //       if (!obj[i]) {
+  //         obj[i] = jiaoyiTongji[key][i]
+  //       } else {
+  //         obj[i] += jiaoyiTongji[key][i]
+  //       }
+  //     } else {
+  //       obj[i] = jiaoyiTongji[key][i]
+  //     }
+  //   }
+  // }
+  console.log(obj)
+
+</script>

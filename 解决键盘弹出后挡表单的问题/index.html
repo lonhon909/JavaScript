@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    :root {
+      box-sizing: border-box;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: inherit;
+    }
+
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+    }
+
+    #app {
+      background-color: #ffffff;
+      position: relative;
+    }
+
+    .username,
+    .password {
+      height: 200px;
+    }
+
+    input {
+      line-height: 30px;
+      color: red;
+      outline: none;
+      border: 1px dotted pink;
+    }
+    #app{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="username">
+      <label for="">1</label>
+      <input type="text">
+    </div>
+    <div class="password">
+      <label for="">2</label>
+      <input type="text">
+    </div>
+    <div class="password">
+      <label for="">3</label>
+      <input type="text">
+    </div>
+    <div class="password">
+      <label for="">4</label>
+      <input type="text">
+    </div>
+    <div class="password">
+      <label for="">5</label>
+      <input type="text">
+    </div>
+    <div class="password">
+      <label for="">6</label>
+      <input type="text">
+    </div>
+    <div class="password">
+      <label for="">7</label>
+      <input type="text">
+    </div>
+  </div>
+  <script>
+    window.addEventListener('resize', function () {
+      if (
+        document.activeElement.tagName === 'INPUT' ||
+        document.activeElement.tagName === 'TEXTAREA' ||
+        document.activeElement.getAttribute('contenteditable') == 'true'
+      ) {
+        window.setTimeout(function () {
+          if ('scrollIntoView' in document.activeElement) {
+            document.activeElement.scrollIntoView();
+          } else {
+            // @ts-ignore
+            document.activeElement.scrollIntoViewIfNeeded();
+          }
+        }, 0);
+      }
+    })
+  </script>
+</body>
+
+</html>

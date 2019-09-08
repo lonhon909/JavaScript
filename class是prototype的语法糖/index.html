@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // Object.setPrototypeOf(obj, xxx)设置对象的原型 相当于 obj.__proto__ = xxx
+
+    let obj = {
+      name: 'Jy',
+      speak() {
+        console.log(this.name, super.name)
+      }
+    }
+
+    // Object.setPrototypeOf(obj,  { name: 'super' })
+    obj.__proto__ = { name: 'super' }
+    console.log(obj)
+    console.log(Object.getPrototypeOf(obj))
+  </script>
+</body>
+
+</html>

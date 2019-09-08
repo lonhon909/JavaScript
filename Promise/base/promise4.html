@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./promise4.js"></script>
+</head>
+<body>
+  <script>
+    new Promise((resolve, reject) => {
+      resolve('链式调用')
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .then(() => {
+        console.log('链式')
+        return '空then'
+      })
+      .then()
+      .then((res) => {
+        console.log(res) 
+      })
+
+    // onFulfilled返回一个promise
+    new Promise((resolve, reject) => {
+      resolve('链式调用123')
+    }).then((res) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('我在then方法里面返回promise')
+        }, 1000);
+      })
+    }).then((res) => {
+      console.log(res); // 返回一个Promise而不是，resolve()的结果
+    })
+  </script>
+</body>
+</html>

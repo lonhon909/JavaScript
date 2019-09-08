@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <h3>new操作符做了这些事：</h3>
+    <p>1、它创建了一个全新的对象。</p>
+    <p>2、通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上。(这个对象，也就是构造函数中的 this，可以访问到挂载在 this 上的任意属性)</p>
+    <p>3、它使this指向新创建的对象。</p>
+    <p>4、如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用。</p>
+  </div>
+  <script>
+    function newFun(fn, ...args) {
+      if (typeof fn !== 'function') {
+        throw TypeError(`${fn} is not a constructor`);
+      }
+      // 它创建了一个全新的对象
+      let obj = {};
+      // 通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上
+      Object.setPrototypeOf(obj, fn.prototype)
+      // 它使this指向新创建的对象
+      let result = fn.call(obj, args);
+      // 如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用。
+      if (result !== null && (typeof result === 'object' || typeof result === 'function')) {
+        return result;
+      } 
+      return obj;
+    }
+
+    function Fn() {
+      this.a = 1;
+    }
+
+    const b = new Fn();
+    console.log(b)
+
+    const c = newFun(Fn);
+    console.log(c)
+    
+  </script>
+</body>
+</html>

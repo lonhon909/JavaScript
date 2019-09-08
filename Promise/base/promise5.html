@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./promise5.js"></script>
+</head>
+<body>
+  <script>
+    // new Promise((resolve, reject) => {
+    //   resolve('链式调用')
+    // })
+    //   .then((res) => {
+    //     console.log(res)
+    //   })
+    //   .then(() => {
+    //     console.log('链式')
+    //     return '空then'
+    //   })
+    //   .then()
+    //   .then((res) => {
+    //     console.log(res) 
+    //   })
+
+    // onFulfilled返回一个promise
+    // const cf = new Promise((resolve, reject) => {
+    //   resolve('链式调用123')
+    // });
+    // const cf2 = cf.then((res) => {console.log(res); return cf});
+    // const cf3 = cf2.then(() => cf2);
+    // cf3.then((res) => {
+    //   console.log(res)
+    // })
+
+
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(123)
+      }, 1000);
+    }).then(res => {
+      console.log(res)
+    })
+  </script>
+</body>
+</html>

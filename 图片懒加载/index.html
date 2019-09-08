@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./main.js"></script>
+</head>
+
+<body>
+  <div class="root">
+    <a href="https://juejin.im/post/5c9376506fb9a070fc623b2c?utm_source=gold_browser_extension">图片懒加载的前世今生</a>
+    <p>前世：</p>
+    <p>
+      图片懒加载技术主要通过监听图片资源容器是否出现在视口区域内，来决定图片资源是否被加载。
+      那么实现图片懒加载技术的核心就是<b>如何判断元素处于视口区域之内</b>。
+    </p>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/2.png" alt="">
+    </div>
+    <p>早前实现的思路：</p>
+    <p>1、给目标元素指定一张占位图，将真实的图片链接存储在自定义属性中，通常是data-src；</p>
+    <p>2、监听与用户滚动行为相关的 scroll 事件；</p>
+    <p>3、在 scroll 事件处理程序中利用 Element.getBoundingClientRect() 方法判断目标元素与视口的交叉状态；</p>
+    <p>4、当目标元素与视口的交叉状态大于0时，将真实的图片链接赋给目标元素 src 属性或者 backgroundImage 属性。</p>
+
+    <p>scroll 事件</p>
+    <P class="p">scroll 事件可能会被高频度的触发，而按照上述思路，必然会在 scroll 事件处理程序中出现大量的 DOM 操作，这很可能会使页面不再“如丝般顺滑”，这时就需要降低 DOM 操作的频率。</P>
+    <P class="p">降低 DOM 操作的频率可以采用函数节流的方式，函数节流能够确保在固定时间间隔只执行一次操作。</P>
+    <P class="p">与函数节流相关的另一个概念叫做函数防抖，这位兄弟同样等待一个时间间隔执行操作，但是它被打断之后就需要重新开始计时。</P>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/3.png" alt="">
+    </div>
+    <p>getBoundingClientRect()方法</p>
+    <p class="p">JavaScript 提供 Element.getBoundingClientRect() 方法返回元素的大小以及相对于视口的位置信息，接下来会用到返回对象的四个属性：</p>
+    <p class="p">top 和 left 是目标元素左上角坐标与网页左上角坐标的偏移值；</p>
+    <p class="p">top 和 left 是目标元素左上角坐标与网页左上角坐标的偏移值；</p>
+    <p>再结合视口的高度和宽度，即可判断元素是否出现在视口区域内：</p>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/4.png" alt="">
+    </div>
+    <p>实现:</p>
+    <p class="p">scroll 事件只有在滚动行为发生时，才会被触发，这里需要手动加载一次首屏的图片；</p>
+    <p class="p">利用 addEventListener 注册事件处理程序时，需要保存事件处理程序的引用，以便销毁注册的事件程序。</p>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/5.png" alt="">
+    </div>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/6.png" alt="">
+    </div>
+    <p>今生：</p>
+    <p class="p">如今，Web为开发者提供了 IntersectionObserver
+      接口，它可以异步监听目标元素与其祖先或视窗的交叉状态，注意这个接口是异步的，它不随着目标元素的滚动同步触发，所以它并不会影响页面的滚动性能。</p>
+    <p>IntersectionObserver 构造函数接收两个参数，回调函数以及配置项。</p>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/7.png" alt="">
+    </div>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/8.png" alt="">
+    </div>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/9.png" alt="">
+    </div>
+    <div class="images-container">
+      <img src="./images/1.jpg" data-src="./images/10.png" alt="">
+    </div>
+  </div>
+  <script>
+    const lazy = new LazyLoad('img');
+  </script>
+</body>
+
+</html>

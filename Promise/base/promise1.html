@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./promise1.js"></script>
+</head>
+<body>
+  <script>
+    const p = new Promise((resolve, reject) => {
+      resolve(100)
+    }).then((res) => {
+      console.log(res)
+    })
+    
+    // 目前的promise1不支持异步，请看promise2
+    const asp = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('异步执行')
+      }, 1000);
+    }).then((res) => {
+      console.log(res); // 不执行
+    })
+  </script>
+</body>
+</html>

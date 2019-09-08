@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.getWeight = function(weight) {
+            this.weight = weight || 100;
+        } 
+
+        const p = new Person('张三', 25);
+
+
+        function create(Construct, ...args) {
+            const obj = {};
+            Object.setPrototypeOf(obj, Construct.prototype);
+            const result = Construct.apply(obj, args);
+            return result instanceof Object ? result : obj;
+        }
+        const p2 = create(Person, '李四', 25);
+        console.log(p2)
+
+        for(let i in p) {
+            console.log(i)
+        }
+    </script>
+</body>
+</html>

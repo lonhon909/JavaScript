@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function isObject(obj) {
+      return typeof obj === 'object' && obj !== null;
+    }
+    function deepCopy(source) {
+      if (isObject(source)) { // 非对象返回本身
+        return source;
+      }
+      const result = Array.isArray(obj) ? [] : {}; // 兼容数组和对象
+      for(let key in source) {
+        if (source.hasOwnProperty(key)) { // 只返回对象自身的属性
+          if (isObject(source[key])) {
+            result[key] = deepCopy(source[key]);
+          } else {
+            result[key] = source[key];
+          }
+        }
+      }
+      return result;
+    }
+  </script>
+</body>
+
+</html>

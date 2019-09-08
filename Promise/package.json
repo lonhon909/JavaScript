@@ -1,0 +1,16 @@
+{
+  "name": "Promise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "promises-aplus-tests ./base/promise5.js",
+    "test": "promises-aplus-tests ./promise.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "promises-aplus-tests": "^2.1.2"
+  }
+}

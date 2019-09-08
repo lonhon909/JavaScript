@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 第1种
+    var b = 0;
+    Object.defineProperty(window, 'a', {
+      get() {
+        return ++b
+      },
+      set(v) {
+        b = v
+      }
+    })  
+    console.log(a===1&&a===2&&a===3) // true
+
+    // 第2种
+    var m = [1, 2, 3];
+    let _toString = Array.prototype.toString;
+    Array.prototype.toString = Array.prototype.shift;
+    console.log(m == 1 && m == 2 && m == 3) // true
+    Array.prototype.toString = _toString;
+    _toString = null;
+
+    // 第3种
+    var obj = {
+      [Symbol.toPrimitive]: (function() {
+        let i = 0;
+        return function() {
+          return ++i
+        }
+      })()
+    }
+
+    console.log(obj == 1&&obj==2&&obj==3) // true
+  </script>
+</body>
+</html>

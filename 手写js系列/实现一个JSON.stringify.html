@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <h3>JSON.stringify(value[, replacer [, space]])：</h3>
+    <p>1、Boolean | Number| String 类型会自动转换成对应的原始值。</p>
+    <p>2、undefined、任意函数以及symbol，会被忽略（出现在非数组对象的属性值中时），或者被转换成 null（出现在数组中时）。</p>
+    <p>3、不可枚举的属性会被忽略</p>
+    <p>4、如果一个对象的属性值通过某种间接的方式指回该对象本身，即循环引用，属性也会被忽略。</p>
+  </div>
+
+  <script>
+
+    // Number Boolean String  Undefined Null Symbol Function 
+
+    /* 
+        正则 typeof /a/ = 'object'
+        
+     */
+
+    function jsonStringify(data) {
+      let type = typeof data;
+      if (type === 'object' && data !== null) {
+        let json = [];
+        let isArr = Array.isArray(data);
+        for (let key in data) {
+          let prop = data[key];
+          let type = typeof prop;
+          if (/string|undefined/.test(type)) {
+            prop = '"' + prop + '"';
+          } else if (/function|symbol/.test(type)) {
+            prop = isArr ? null : "";
+          } else if (type === 'object') {
+            prop = jsonStringify(prop);
+          }
+          json.push((isArr ? "" : '"' + key + '":') + String(prop));
+        }
+        return (isArr ? "[" : "{") + String(json) + (isArr ? "]" : "}");
+      } else {
+        if (/undefined|function|symbol/.test(type)) {
+          return undefined;
+        }
+        if (type === 'string') {
+          data = '"' + data + '"';
+        }
+        return String(data)
+      }
+    }
+
+
+    const arr = [null, undefined, '字符串', 100, Symbol(), function() {}];
+
+    for(let i = 0; i < arr.length; i++) {
+      console.log(jsonStringify(arr[i]) === JSON.stringify(arr[i]))
+    }
+  </script>
+</body>
+</html>

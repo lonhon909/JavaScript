@@ -1,0 +1,199 @@
+<script>
+
+// var data = {
+//   a: 1,
+//   b: {
+//     c: 2
+//   },
+//   d: {
+//     f: 3
+//   },
+//   g: [0, '***'],
+//   [Symbol('a')]: 100
+// }
+// data.h = data
+
+// let copyData = deepCopy(data);
+// copyData.a = '修改';
+// copyData.b.c = '修改';
+// copyData.g[1] = '修改';
+
+// console.log(data, copyData)
+
+
+// function deepCopy(source, uniqueList = []) {
+//   // 非对象返回自身
+//   if (!isObject(source)) {
+//     return source;
+//   }
+//   // 数组兼容性
+//   var result = Array.isArray(source) ? [] : {};
+//   // 获取是否已经拷贝过对象
+//   var uniqueData = find(uniqueList, source);
+//   // 数据已经存在，返回保存的数据
+//   if (uniqueData) {
+//     return uniqueData.result;
+//   }
+//   // 数据不存在，保存源数据，以及对应的引用
+//   uniqueList.push({
+//     source: source,
+//     result: result
+//   })
+//   // 获取Symbol键值属性对
+//   let symKeys = Object.getOwnPropertySymbols(source);
+//   if (symKeys.length) {
+//     symKeys.forEach(item => {
+//       if (isObject(source[item])) {
+//         result[item] = deepCopy(source[item], uniqueList)
+//       } else {
+//         result[item] = source[item];
+//       }
+//     })
+//   }
+//   for(var key in source) {
+//     // 只拷贝可枚举属性
+//     if (Object.prototype.hasOwnProperty.call(source, key)) {
+//       // 判断第二层属性值是否为对象，是就递归
+//       if (isObject(source[key])) {
+//         // 将当前的uniqueList保存传入，以供查询
+//         result[key] = deepCopy(source[key], uniqueList);
+//       } else {
+//         result[key] = source[key];
+//       }
+//     }
+//   }
+//   return result;
+// }
+
+
+
+
+
+</script>
+
+
+<script>
+function isObject(obj) {
+  return typeof obj === 'object' && obj != null;
+}
+
+function find(arr, item) {
+  for(var i = 0; i < arr.length; i++) {
+    if (arr[i].source === item) {
+      return arr[i];
+    }
+  }
+  return null;
+}
+</script>
+
+<script>
+
+var data = {
+  a: 1,
+  b: {
+    c: 2
+  },
+  d: {
+    f: 3
+  },
+  g: [0, '***'],
+  [Symbol('a')]: 100,
+  h: new Date(),
+  j: new RegExp('asd', 'g')
+}
+// data.h = data
+
+// var data = {a: {b: {c: 777}}}
+
+let copyData = deepCopy(data);
+// copyData.a = '修改';
+// copyData.b.c = '修改';
+// copyData.g[1] = '修改';
+
+console.log(data, copyData)
+
+function deepCopy(x) {
+  // 用来去重
+  const uniqueList = [];
+  let root = Array.isArray(x) ? [] : {};
+  // 栈
+  const loopList = [
+    {
+      parent: root,
+      key: undefined,
+      data: x
+    }
+  ]
+
+  while(loopList.length) {
+    const node = loopList.pop();
+    const parent = node.parent;
+    const key = node.key;
+    const data = node.data;
+
+    
+    let res = parent;
+    if (typeof key !== 'undefined') {
+      res = parent[key] = Array.isArray(data) ? [] : {};
+    }
+    
+
+    let uniqueData = find(uniqueList, data);
+    if (uniqueData) {
+      parent[key] = uniqueData.target;
+      break; // 中断本次循环
+    }
+
+    // 数据不存在
+    // 保存源数据，在拷贝数据中对应的引用
+    uniqueList.push({
+        source: data,
+        target: res,
+    });
+
+    // 获取Symbol键值属性对
+    let symKeys = Object.getOwnPropertySymbols(data);
+    if (symKeys.length) {
+      symKeys.forEach(k => {
+        if (isObject(data[k])) {
+          if (data[k] instanceof Date) {
+            res[k] = new Date(data[k])
+          } else if (data[k] instanceof RegExp) {
+            res[k] = new RegExp(data[k])
+          } else {
+            loopList.push({
+              parent: res,
+              key: k,
+              data: data[k]
+            })
+          }
+        } else {
+          res[k] = data[k]
+        }
+      })
+    }
+
+    for(let k in data) {
+      if (data.hasOwnProperty(k)) {
+        if (isObject(data[k])) {
+          if (data[k] instanceof Date) {
+            res[k] = new Date(data[k])
+          } else if (data[k] instanceof RegExp) {
+            res[k] = new RegExp(data[k])
+          } else {
+            loopList.push({
+              parent: res,
+              key: k,
+              data: data[k]
+            })
+          }
+        } else {
+          res[k] = data[k]
+        }
+      }
+    }
+  }
+  return root;
+}
+</script>

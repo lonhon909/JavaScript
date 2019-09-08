@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数防抖（debounce）</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        html,body{width: 100%;height: 100%;}
+        .container1,.container2{width: 100%;height: 50%;}
+        .container1,.container2{background-color: #fff;display: flex;justify-content: center;align-items: center;font-size: 25px;}
+        .container2{background-color: #000000;color: #fff;}
+    </style>
+</head>
+<body>
+    <div class="container1">
+        <span>1</span>
+    </div>
+    <div class="container2">
+        <span>1</span>
+    </div>
+    <script>
+        `
+            函数防抖（debounce）：
+            当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，
+            如果设定的时间到来之前，又一次触发了事件，就重新开始计时
+
+            如：边输入边搜索
+            如：scroll事件
+        `
+    </script>
+    <script>
+        /* // 非立即执行版
+        function debounce(fn, delay) {
+            let timer = null;
+            return function() {
+                const context = this;
+                const args = arguments;
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                timer = setTimeout(() => {
+                    fn.apply(context, args)
+                }, delay);
+            }
+        }
+        // 立即执行版
+        function debounce(fn, delay) {
+            let timer = null;
+            return function() {
+                const context = this;
+                const args = arguments;
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                let callNow = !timer;
+                timer = setTimeout(() => {
+                    timer = null;
+                }, delay);
+                if (callNow) fn.apply(context, args)
+            }
+        } */
+
+        /**
+         * @desc 函数防抖
+         * @param fn 函数
+         * @param delay 延迟执行毫秒数
+         * @param immediate true 表立即执行，false 表非立即执行
+         */
+        function debounce(fn, delay, immediate = false) {
+            let timer = null;
+            return function() {
+                const context = this;
+                const args = arguments;
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                if (immediate) {
+                    let callNow = !timer;
+                    timer = setTimeout(() => {
+                        timer = null;
+                    }, delay);
+                    if (callNow) fn.apply(context, args)
+                } else {
+                    timer = setTimeout(() => {
+                        fn.apply(context, args)
+                    }, delay);
+                }
+            }
+        }
+
+        let num1 = 1;
+        const container1 = document.querySelector('.container1');
+        function count1() {
+            container1.innerHTML = num1++;
+        };
+        container1.onmousemove = count1; // 连续触发
+
+        let num2 = 2;
+        const container2 = document.querySelector('.container2');
+        function count2() {
+            container2.innerHTML = num2++;
+        };
+        container2.onmousemove = debounce(count2, 1000, true); // 触发延时执行，100ms内再次触发，立即重置计算延时时间
+    </script>
+</body>
+</html>

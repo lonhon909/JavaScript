@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 去除300ms延迟方案一， 设置viewport禁止缩放 ios设备兼容性不好-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{margin: 0;padding: 0;}
+    html,body,#root{width: 100%;height: 100%;}
+    /* 档案二： 设置html属性如下， ios设备兼容性不好 */
+    /* html {
+      touch-action: manipulation;
+    } */
+
+    #root{background-color: #fff;}
+    .container{
+      height: 200px;
+      background-color: #000000;
+    }
+    .container p {
+      font-size: 12px;
+      line-height: 200px;
+      color: #fff;
+      text-align: center;
+    }
+  </style>
+  <script src="./fastclick.js"></script>
+  <!-- <script src="./fastclick2.js"></script> -->
+  <script>
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      })
+    }
+  </script>
+</head>
+<body>
+  <div id="root">
+    <div class="container" id="container">
+      <p>标准占位符</p>
+    </div>
+    <p class="touchstart"></p>
+    <p class="touchend"></p>
+    <p class="click"></p>
+    <p id="pm"></p>
+  </div>
+  <script src="./index.js"></script>
+</body>
+</html>

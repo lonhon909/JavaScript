@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var a = 'window';  
+
+    /* 1. 避免在定义对象方法时使用 */
+    let obj = {
+      a: 'obj',
+      geta() {
+        console.log(this.a)
+      },
+      // 由于箭头函数自身没有 this 会导致自动继承外层的 this 导致打印出的变量出错
+      geta2: () => {
+        console.log(this.a)
+      }
+    }
+    obj.geta(); // obj
+    obj.geta2(); // window 
+
+
+    /* 2. 避免在 prototype 上使用 */
+    var name = 'window';
+    function Person() {
+      this.name = 'Person'
+    }
+    Person.prototype.getName = function() {
+      console.log(this.name)
+    }
+    // 因为没有 this 导致 this 指向错误，所以在定义 prototype 方法上一定记得不要使用箭头函数
+    Person.prototype.getName2 = () => {
+      console.log(this.name)
+    }
+    let b = new Person();
+    b.getName(); // Person
+    b.getName2(); // window
+
+
+    /* 3. 避免在需要 arguments 上使用 */
+    function foo() {
+      return (...args) => {
+        console.log(...arguments); // 1, 2  箭头函数并没有arguments需要从外部函数获取
+        console.log(...args); // 3, 4
+      }
+    }
+    foo(1, 2)(3, 4);
+
+
+    /* 4. 避免在动态上下文中的回调函数里使用 */
+    // 比如在一个页面中，我们需要为每一个 p 元素增加一个事件处理函数
+    document.querySelectorAll('p').forEach(elem => {
+      elem.addEventListener('click', () => {
+        console.log(this.innerText.length) // 这个时候 this 指向 window，因此会报错
+      })
+    })
+  </script>
+</body>
+</html>

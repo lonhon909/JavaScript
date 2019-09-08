@@ -1,0 +1,27 @@
+<script>
+
+function curry(fn, ...args) {
+  // 柯里化 传入的参数个数不小于目标函数期望传入的参数个数时，直接求值返回， 函数的length属性表示函数期望传入参数的个数
+  if (args.length >= fn.length) {
+    return fn(...args);
+  }
+  // 如果参入的参数不足，就返回一个函数，等待再次传入参数重新柯里化
+  return function(...rest) {
+    return curry(fn, ...args, ...rest)
+  }
+}
+
+// const curry = (fn, ...args) => args.length < fn.length ? (...arguments) => curry(fn, ...args, ...arguments) : fn(...args);
+
+function sumFn(a, b, c) {
+  return a + b + c
+}
+console.log('sumFn.length', sumFn.length)
+
+var sum = curry(sumFn);
+
+console.log(sum(1)(2, 3))
+// console.log(sum(1, 2)(3))
+// console.log(sum(1)(2)(3))
+
+</script>
