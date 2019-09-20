@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html {
+      scroll-behavior: smooth; /* 全局滚动具有平滑效果 */
+    }
+    .container {
+      /* height: 2000px; */
+      background-color: bisque;
+    }
+    ul,ol,li{
+      list-style: none;
+    }
+    .list li {
+      line-height: 100px;
+      text-align: center;
+    }
+    .btn-group {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .box{
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      display: inline-block;
+      overflow: auto;
+      overscroll-behavior: contain;
+    }
+  </style>
+</head>
+<body>
+  <a href="https://juejin.im/post/5d75adfbe51d4561e84fcc9c">浏览器的一些“滚动”行为鉴赏</a>
+  <div class="container">
+    <ul class="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+      <div class="box">
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+        <p>滚动传播</p>
+      </div>
+      <li>11</li>
+      <li>12</li>
+      <li>13</li>
+      <li>14</li>
+      <li>15</li>
+      <li>16</li>
+      <li>17</li>
+      <li>18</li>
+      <li>19</li>
+      <li>20</li>
+    </ul>
+  </div>
+  <div class="btn-group">
+    <button onclick="scrollToEl1();">window.scrollTo(0, 100)</button><br/>
+    <button onclick="scrollToEl2();">window.scrollTo({ left:0,top: 200 })</button><br/>
+    <button onclick="scrollToEl3();">相对滚动window.scrollBy(0, 100)</button><br/>
+    <button onclick="scrollToEl4();">相对滚动window.scrollBy({ left:0,top: 100 })</button><br/>
+    <button onclick="scrollToEl5();">会到顶部scrollTop</button><br/>
+    <button onclick="scrollToEl6();">scrollIntoView()</button><br/>
+    <button onclick="scrollToEl6('start');">scrollIntoView({block: 'start'})</button><br/>
+    <button onclick="scrollToEl6('center');">scrollIntoView({block: 'center'})</button><br/>
+    <button onclick="scrollToEl6('end');">scrollIntoView({block: 'end'})</button><br/>
+  </div>
+
+  <script>
+    function scrollToEl1() {
+      window.scrollTo(0, 100)
+    }
+    function scrollToEl2() {
+      window.scrollTo({
+        left: 0,
+        top: 200,
+        behavior: "smooth" // 平滑的过渡效果
+      })
+    }
+
+    function scrollToEl3() {
+      window.scrollBy(0, 100)
+    }
+    function scrollToEl4() {
+      window.scrollBy({
+        left: 0,
+        top: 100,
+        behavior: "smooth" // 平滑的过渡效果
+      })
+    }
+
+    function scrollToEl5() {
+      document.scrollingElement.scrollTop = 0;
+    }
+
+    function scrollToEl6(type = '') {
+      if (type) {
+        return document.querySelector('.box').scrollIntoView({
+          block: type,
+          behavior: "smooth" // 平滑的过渡效果
+        })
+      }
+      document.querySelector('.box').scrollIntoView()
+    }
+
+  </script>
+</body>
+</html>
