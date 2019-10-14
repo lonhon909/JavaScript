@@ -1,0 +1,23 @@
+{
+  "name": "JavaScript",
+  "version": "1.0.0",
+  "description": "js中的一些知识",
+  "main": "vue.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lonhon909/JavaScript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lonhon909/JavaScript/issues"
+  },
+  "homepage": "https://github.com/lonhon909/JavaScript#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
