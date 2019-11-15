@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>浏览器原生组件</title>
+  <link rel="import" href="./template.html">
+</head>
+<body>
+  <a href="http://www.ruanyifeng.com/blog/2019/08/web_components.html">浏览器原生组件Web Components</a>
+  <user-card></user-card>
+
+  <script>
+    class UserCard extends HTMLElement {
+      constructor() {
+        super()
+        var shadow = this.attachShadow({ mode: 'closed' })
+
+        // var templateElem = document.getElementById('userCardTemplate');
+        var templateElem = document.querySelector('link[rel="import"]').import.querySelector('#userCardTemplate');
+        var content = templateElem.content.cloneNode(true);
+        shadow.appendChild(content);
+      }
+    }
+  
+    window.customElements.define('user-card', UserCard)
+  </script>
+</body>
+</html>
