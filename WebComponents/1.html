@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>浏览器原生组件</title>
+</head>
+<body>
+  <a href="http://www.ruanyifeng.com/blog/2019/08/web_components.html">浏览器原生组件Web Components</a>
+  <!-- 
+    这种自定义的 HTML 标签，称为自定义元素（custom element）。根据规范，自定义元素的名称必须包含连词线，
+    用与区别原生的 HTML 元素。所以，<user-card>不能写成<usercard>
+   -->
+  <user-card></user-card>
+
+  <template id="userCardTemplate">
+    <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" class="image">
+    <div class="container">
+      <p class="name">User Name</p>
+      <p class="email">yourmail@some-email.com</p>
+      <button class="button">Follow</button>
+    </div>
+  </template>
+
+  <script>
+    class UserCard extends HTMLElement {
+      constructor() {
+        super()
+
+        var templateElem = document.getElementById('userCardTemplate');
+        var content = templateElem.content.cloneNode(true);
+        this.appendChild(content);
+      }
+    }
+    // 即全局注册该元素
+    window.customElements.define('user-card', UserCard)
+  </script>
+</body>
+</html>

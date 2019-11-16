@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="changeUrl1();">pushState</button>
+  <button onclick="changeUrl2();">replaceState</button>
+  <script>
+    
+    function changeUrl1() {
+      window.history.pushState(null, null, '#home1');
+    }
+    function changeUrl2() {
+      window.history.replaceState(null, null, '#home2')
+    }
+
+    window.addEventListener('popstate', (...rest) => {
+      console.log('popstate', rest)
+    })
+    window.addEventListener('hashchange', (...rest) => {
+      console.log('hashchange', rest)
+    })
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{margin: 0;padding: 0;}
+    .container {
+      width: 300px;
+      height: 157px;
+      position: relative;
+      background: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2299113196,3410006479&fm=26&gp=0.jpg') no-repeat center center;
+      border: 1px solid rosybrown;
+      background-size: contain;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    canvas.width = 300;
+    canvas.height = 157;
+
+    const ctx = canvas.getContext('2d');
+    
+
+    ctx.moveTo(0, 0);
+    ctx.rect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#0cc';
+    ctx.fill();
+  </script>
+</body>
+</html>

@@ -93,6 +93,7 @@
         let num1 = 1;
         const container1 = document.querySelector('.container1');
         function count1() {
+            console.log(123)
             container1.innerHTML = num1++;
         };
         container1.onmousemove = count1; // 连续触发
@@ -102,7 +103,8 @@
         function count2() {
             container2.innerHTML = num2++;
         };
-        container2.onmousemove = debounce(count2, 1000, true); // 触发延时执行，100ms内再次触发，立即重置计算延时时间
+        const mouse = debounce(count2, 1000, true);
+        container2.onmousemove = mouse; // 触发延时执行，100ms内再次触发，立即重置计算延时时间
     </script>
 </body>
 </html>
