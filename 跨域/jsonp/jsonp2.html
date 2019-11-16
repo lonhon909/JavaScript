@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  <script>
+    
+    class JsonP {
+      constructor(url, params, callback) {
+        this.callbackName = 'jsonp_' + Date.now();
+        this.url = url;
+        this.callback = callback;
+        this.params = params;
+        this.init();
+      }
+      init() {
+        let arr = [];
+        for (let [key, value] of Object.entries(this.params)) {
+          arr.push(`${key}=${value}`);
+        }
+        if (this.url.indexOf('?')) {
+          this.url += `&${arr.join('&')}&cb=${this.callbackName}`;
+        } else {
+          this.url += `?${arr.join('&')}&cb=${this.callbackName}`;
+        }
+        this.createScript();
+        this.createCallback();
+      }
+      createScript() {
+        const scriptNode = document.createElement('script');
+        scriptNode.src = this.url;
+        scriptNode.onload = function() {
+          this.remove(scriptNode);
+          // delete window[this.callbackName];
+        }
+        document.body.appendChild(scriptNode);
+      }
+      createCallback() {
+        window[this.callbackName] = this.callback;
+      }
+      remove(el) {
+        document.body.removeChild(el)
+      }
+    }
+
+    new JsonP('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
+      wd: 'jsonp'
+    }, function(data) {
+      console.log(data)
+    })
+
+  </script>
+</body>
+</html>

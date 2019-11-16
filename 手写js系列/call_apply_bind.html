@@ -17,7 +17,11 @@
 
 
   <script>
-    Function.prototype.call2 = function(context = window, ...args) {
+    Function.prototype.call2 = function(context, ...args) {
+      if (typeof this !== 'function') {
+        throw new TypeError(`${this} is not a function`)
+      }
+      context = Object(context) || window;
       // symbol防止重名属性
       const fn = Symbol();
       context[fn] = this;
@@ -27,6 +31,10 @@
     }
 
     Function.prototype.apply2 = function(context = window, arr = []) {
+      if (typeof this !== 'function') {
+        throw new TypeError(`${this} is not a function`)
+      }
+      context = Object(context) || window;
       // symbol防止重名属性
       const fn = Symbol();
       context[fn] = this;

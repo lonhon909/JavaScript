@@ -25,9 +25,10 @@
             所谓节流，就是指连续触发事件但是在 n 秒中只执行一次函数。 节流会稀释函数的执行频率。
         `    
     </script>
+    <script src="./throttle.js"></script>
     <script>
         // 时间戳版：函数触发是在时间段内开始的时候
-        function throttle(fn, delay) {
+        /* function throttle(fn, delay) {
             let previous = 0;
             return function() {
                 const now = Date.now();
@@ -52,7 +53,7 @@
                     }, delay)
                 }
             }
-        }
+        } */
 
         let num1 = 1;
         const container1 = document.querySelector('.container1');
@@ -66,8 +67,9 @@
         function count2() {
             container2.innerHTML = num2++;
         };
+        const aa = throttle(count2, 1000, 2);
 
-        container2.onmousemove = throttle2(count2, 1000)
+        container2.onmousemove = aa
 
     </script>
 </body>
