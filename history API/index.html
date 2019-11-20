@@ -11,10 +11,10 @@
   <script>
     
     function changeUrl1() {
-      window.history.pushState(null, null, '#home1');
+      window.history.pushState(null, null, './a.html');
     }
     function changeUrl2() {
-      window.history.replaceState(null, null, '#home2')
+      window.history.replaceState(null, null, './b.html')
     }
 
     window.addEventListener('popstate', (...rest) => {
