@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+  <script src="./index.js"></script>
+  <style>
+    *{margin: 0;padding: 0;}
+    html,body,#app{width: 100%;height: 100%;}
+    .list li {
+      font-size: 12px;
+      text-align: center;
+      line-height: 100px;
+      color: red;
+    }
+    .list li:nth-child(2n) {
+      background-color: antiquewhite;
+    }
+    .list li:nth-child(2n + 1) {
+      background-color: darkgrey;
+    }
+  </style>
+</head>
+<body>
+  <!-- UC浏览器不支持 -->
+  <!-- IOS不支持 -->
+  <div class="span">
+
+  </div>
+  <div id="app">
+    <ul class="list">
+      <li
+        v-for="(item, index) in list"
+        :key="index"
+        :id="getId(index)"
+      >{{ item }}</li>
+    </ul>
+  </div>
+
+  <script>
+    document.querySelector('.span').innerHTML = typeof window.IntersectionObserverEntry
+    // alert(typeof window.IntersectionObserverEntry)
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        list: [],
+      },
+      mounted() {
+        this.list = this.renderFunction(1);
+        this.$nextTick(() => {
+          const container = document.querySelector('.list');
+          this.scroll = new ListScroll({
+            firstItemId: 'first-item',
+            lastItemId: 'last-item',
+            itemHeight: '100',
+            container,
+            listSize: 20,
+            renderFunction: (index) => {
+              this.list = this.renderFunction(index);
+            }
+          });
+          this.scroll.initIntersectionObserver();
+        })
+      },
+      methods: {
+        getId(index) {
+          if (index === 0) {
+            return 'first-item'
+          } else if (index === this.list.length - 1) {
+            return 'last-item'
+          }
+        },
+        renderFunction(index) {
+          const arr = [];
+          for (let i = index; i < index + 20; i++) {
+            arr.push(i)
+          }
+          return arr;
+        }
+      },
+    })
+  </script>
+</body>
+</html>

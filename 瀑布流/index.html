@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+  <script src="./data.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .masonry {
+      column-count: 3;
+      column-gap: 10px;
+      padding: 10px;
+
+    }
+
+    .masonry .item {
+      /* break-inside: avoid; */
+      border: 1px solid #999;
+      margin-bottom: 10px;
+
+    }
+
+    .masonry .item img {
+      width: 100%;
+      vertical-align: middle;
+    }
+
+    .masonry .item .title {
+      display: block;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="masonry">
+      <div class="item" :key="i.id" v-for="i in data">
+        <img :src="i.img">
+        <span class="title">{{i.value}}</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        data: list
+      }
+    })
+  </script>
+
+</body>
+
+</html>
