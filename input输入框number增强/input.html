@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="number" name="" id="" min="1" max="100" step="5">
+
+  <script>
+    const KEY = {
+      UP: 38,
+      DOWN: 40,
+    };
+
+    document.querySelector('input').addEventListener('keydown', function(e) {
+      if ([KEY.UP, KEY.DOWN].includes(e.keyCode)) {
+        e.preventDefault();
+
+        const currentValue = isNaN(e.target.value) ? parseFloat(e.target.getAttribute('min')) || 0 : parseFloat(e.target.value);
+
+        const direction = e.keyCode === KEY.UP ? 1 : -1;
+
+        const modifier = e.keyCode === 17 ? 100 : e.keyCode === 16 ? 10 : e.keyCode === 18 ? 0.1 : 1;
+        
+        console.log(e.ctrlKey)
+      }
+    })
+  </script>
+</body>
+</html>

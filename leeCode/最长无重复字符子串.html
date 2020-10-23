@@ -1,0 +1,28 @@
+<script>
+  const str = 'abcabcbb';
+
+  function getMaxLength(str) {
+    if (str.length === 0) return '';
+    let current = '';
+    let start = 0;
+    let max = 0;
+    let result = '';
+    while(start < str.length) {
+      const tmp = str[start];
+      const index = current.indexOf(tmp);
+      current += tmp;
+      if (index !== -1) {
+        current = current.substr(index +1);
+      }
+      if (current.length > max) {
+        result = current;
+        max = current.length;
+      }
+      start++;
+    }
+    return result;
+  }
+
+  console.log(getMaxLength(str))
+
+</script>

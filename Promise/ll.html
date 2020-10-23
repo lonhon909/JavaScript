@@ -1,0 +1,24 @@
+<script>
+  Promise.resolve()
+  .then(() => {
+    console.log("then11");
+    Promise.resolve()
+      .then(() => {
+        console.log("then1-12");
+        return Promise.resolve();
+      })
+      .then(() => {
+        console.log("then1-25");
+      });
+  })
+  .then(() => {
+    console.log("then23");
+  })
+  .then(() => {
+    console.log("then34");
+  })
+  .then(() => {
+    console.log("then46");
+  });
+
+</script>

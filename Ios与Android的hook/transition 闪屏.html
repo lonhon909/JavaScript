@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./alloy_finger.js"></script>
+  <style>
+    *{margin: 0;padding: 0;}
+    html, body, .J-slider, .J-scroller, .item {
+      width: 100%;
+      height: 100%;
+    }
+    .J-slider {
+      border: 1px solid red;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .J-scroller {
+      width: 200%;
+      background-color: #cfbfab;
+      transition: all ease-in-out .3s;
+    }
+    .item {
+      width: 50%;
+      float: left;
+      text-align: center;
+      line-height: 600px;
+    }
+  </style>
+</head>
+<body>
+  <div class="J-slider">
+    <div class="J-scroller">
+      <div class="item">1</div>
+      <div class="item">1</div>
+      <!-- <div class="item">1</div> -->
+    </div>
+  </div>
+
+  <script>
+
+    const swipe = document.querySelector('.J-scroller');
+
+    new AlloyFinger(swipe, {
+      touchStart() {
+        console.log(1)
+      },
+      swipe: (e) => {
+        console.log(e)
+        // swipe.classList.toggle('swipe')
+        if (e.direction === 'Left') {
+          swipe.classList.add('swipe')
+        } else if (e.direction === 'right') {
+          swipe.classList.remove('swipe');
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

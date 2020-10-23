@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scale=no">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: #fff;
+      font-size: 14px;
+      color: #000000;
+      letter-spacing: 0.4px;
+      line-height: 20px;
+      /* position: relative; */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .box {
+      height: 100px;
+      background-color: bisque;
+    }
+
+    .slide {
+      display: none;
+    }
+
+    #slide {
+      position: fixed;
+      background-color: coral;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 300px;
+    }
+
+    .tll {
+      position: relative;
+      height: 200px;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <input type="text">
+    <div class="box" onclick="show();">1</div>
+    <input type="text">
+    <div class="box">2</div>
+    <input type="text">
+    <div class="box">3</div>
+    <input type="text">
+    <div class="box">4</div>
+    <input type="text">
+    <div class="box">5</div>
+    <input type="text">
+    <div class="box">6</div>
+    <input type="text">
+    <div class="box">7</div>
+    <input type="text">
+    <div class="box">8</div>
+    <input type="text">
+    <div class="box">9</div>
+    <input type="text">
+    <div class="box">10</div>
+    <input type="text">
+    <div class="box">11</div>
+    <input type="text">
+    <div class="box" onclick="show();">12</div>
+    <div class="tll">
+      <div class="slide" id="slide">
+        <div style="display: flex;">
+          <input type="text">
+          <div onclick="show();" class="tl">确定</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let t = false;
+
+    function show() {
+      document.getElementById('slide').classList.toggle('slide');
+    }
+
+    // ******************************
+    let scrollTop = 0;
+    // 聚焦的时候记录滚动位置
+    window.addEventListener('focusin', function () {
+      scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    });
+    // 失去焦点的时候回滚 收起键盘
+    window.addEventListener('focusout', function () {
+      window.scrollTo({
+        top: scrollTop,
+        behavior: "smooth"
+      });
+    });
+    // ******************************
+  </script>
+</body>
+
+</html>

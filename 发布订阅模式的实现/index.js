@@ -17,7 +17,7 @@ class Event {
       return false;
     }
     if (!fn) {
-      // 直接清空搜索的订阅
+      // 直接清空所有的订阅
       this.event.delete(eventName);
     } else {
       let cb;

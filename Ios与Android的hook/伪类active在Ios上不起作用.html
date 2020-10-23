@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    a {
+      color: #000;
+    }
+    a:active {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <a href='https://www.baidu.com/'>ihiudhaiuwhdiuashdiuagsduyshvdasbdasbjdhajs</a>
+  <a href="https://www.baidu.com/">123</a>
+
+  <script>
+    // ios上使用伪类active时无效果，只需添加下列代码即可实现生效
+    
+    document.addEventListener('touchstart', function() {}, false);
+    // 或者
+    document.addEventListener('touchend', function() {}, false);
+  </script>
+</body>
+</html>

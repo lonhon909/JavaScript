@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    window.onload = function() {
+      console.log('onload')
+    }
+  </script>
+</head>
+<body>
+  <h2>push模式</h2>
+  <ul>
+    <li onclick="router.push('/')">首页</li>
+    <li onclick="router.push('/news')">新闻</li>
+    <li onclick="router.push('/product')">产品</li>
+  </ul>
+  <div id="app"></div>
+
+  <script>
+    const app = document.querySelector('#app');
+    const baseUrl = `${window.location.pathname}#`;
+    
+    class RouterClass {
+      constructor(opts) {
+        this.routes = {};
+        this.curUrl = '';
+        this.mode = '';
+        if (opts && opts.mode === 'history') {
+          this.mode = opts.mode;
+          this.eventHistoryRouter();
+        } else {
+          this.eventHashRouter();
+        }
+      }
+
+      route(path, callback) {
+        this.routes[path] = callback || function() {};
+      }
+
+      eventHashRouter() {
+        window.addEventListener('load', () => {
+          this.hashRouter.bind(this);
+          console.log('load')
+        });
+        window.addEventListener('hashchange', this.hashRouter.bind(this));
+      }
+      eventHistoryRouter() {
+        window.addEventListener('load', this.historyRouter.bind(this));
+        window.addEventListener('popstate', this.historyRouter.bind(this));
+      }
+
+      hashRouter() {
+        this.curUrl = window.location.hash.slice(1) || '/';
+        this.routes[this.curUrl]();
+      }
+      historyRouter() {
+        this.curUrl = window.location.pathname;
+        this.routes[this.curUrl]();
+      }
+
+      push(url) {
+        if (this.mode === 'history') {
+          window.history.pushState({}, null, url);
+        } else {
+          window.location.href = `#${url}`;
+        }
+      }
+    }
+
+    const router = new RouterClass({
+      mode: 'history',
+    });
+
+    router.route(baseUrl + '/', function() {
+      app.innerHTML="首页"
+    })
+    router.route(baseUrl + '/news', function() {
+      app.innerHTML="新闻页面"
+    })
+    router.route(baseUrl + '/product', function() {
+      app.innerHTML="产品页面"
+    })
+
+  </script>
+</body>
+</html>

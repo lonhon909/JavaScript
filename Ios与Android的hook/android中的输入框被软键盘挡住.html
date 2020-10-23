@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // if (isAndroid) {
+    window.addEventListener("resize", function () {
+      if (document.activeElement.tagName == "INPUT" || document.activeElement.tagName == "TEXTAREA") {
+        window.setTimeout(function () {
+          // document.activeElement.scrollIntoView() 会将元素滚动到顶部（如果滚动高度足够高的话）
+          document.activeElement.scrollIntoViewIfNeeded();
+        }, 0);
+      }
+    })
+    // }
+  </script>
+</body>
+
+</html>

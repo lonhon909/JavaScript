@@ -1,0 +1,33 @@
+<script>
+  'use strict'
+
+  Function.prototype.myCall = function(context, ...args) {
+    if (typeof this !== 'function') {
+      return new TypeError(`${this} is not a function`)
+    }
+    // 非严格模式下，null或undefined指向windwo
+    if ((context === null || context === undefined) && (function() {return this })() === window) {
+      context = window;
+    } else if (['number', 'string', 'boolean'].includes(typeof context)) {
+      context = Object(context);
+    }
+
+    if (context === null || context === undefined) {
+      return this();
+    }
+
+    const prop = Symbol();
+    context[prop] = this;
+    const result = context[prop]();
+    delete context[prop];
+    return result;
+  }
+
+  function a() {
+    console.log(this)
+  }
+
+  a.call({});
+  a.myCall({});
+
+</script>

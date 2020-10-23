@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.3.4/vconsole.min.js"></script>
+  <script>
+    new VConsole()
+  </script>
+</head>
+<body>
+  <div id="app">
+    <div>第一个input</div> <input type="tel" v-model="value" @input="handlerInput($event)" />
+    <div>第二个用的numner</div><input type='number' pattern="[0-9]*" v-model='value2' maxlength="11"/>
+    <div>第3个用tel</div><input type='tel' v-model='value3' maxlength="11" />
+    <div>第4个用的</div><input @input='input2' v-model='value4'/>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        value: '',
+        value2: '',
+        value3: '',
+        value4: '',
+        value5: '',
+      },
+      methods: {
+        input2(){
+          this.value4=this.value4.replace(/\s/g, '');
+          if(this.value4.length>11){
+            this.value4=this.value4.slice(0,11);
+          }
+        },
+        handlerInput(e){
+          // let val = e.target.value;
+          // console.log('1', val)
+          // val = val.replace(/\s/g, '');
+          // console.log('2',val)
+          // this.value = val;
+          // e.target.value = val;
+          // alert(val)
+          this.value=this.value.replace(/\s/g, '');
+        },
+        handlerBlur(e) {
+          if (this.value.length > 11) {
+            this.value = this.value.substr(0, 11);
+          }
+        }
+      },
+    })
+  </script>
+</body>
+</html>
