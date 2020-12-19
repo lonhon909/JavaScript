@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>多页应用监控用户页面停留时长</title>
+</head>
+<body>
+  <p>监控用户页面停留时间</p>
+
+  <script>
+
+    /* 页面的首次进入与退出  刷新都会出发pageshow/pagehide事件 */
+
+    let time = 0;
+    window.addEventListener('pageshow', function() {
+      time = new Date().getTime();
+    })
+    window.addEventListener('pagehide', function() {
+      const stopTime = new Date().getTime() - time;
+      localStorage.setItem('stop', stopTime);
+    })
+
+  </script>
+</body>
+</html>

@@ -5,20 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="./blob.js"></script>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: red;
+    }
+  </style>
 </head>
 <body>
   <div id="app">
     <input id="input" type="file" onchange="getData();"/>
     <img id="img" src="" alt="图片" />
   </div>
+  <button onclick="d();">下载</button>
+  <p><div class="box"></div></p>
 
   <script>
     function getData() {
       const file = document.getElementById('input').files[0];
       const img = document.getElementById('img');
-      console.log(file instanceof Blob)
-      const src = URL.createObjectURL(file)
-      img.src = src
+      console.log(file instanceof File)
+      const src = window.URL.createObjectURL(file)
+      // img.src = src
+      // img.onload = function() {
+      //   window.URL.revokeObjectURL(src);
+      // }
+      const read = new FileReader();
+      read.onload = function(res) {
+        console.log(read.result)
+        // img.src = res.target.result
+      }
+      read.readAsArrayBuffer(file);
     }
   </script>
 </body>

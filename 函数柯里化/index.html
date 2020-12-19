@@ -11,7 +11,7 @@ function curry(fn, ...args) {
   }
 }
 
-// const curry = (fn, ...args) => args.length < fn.length ? (...arguments) => curry(fn, ...args, ...arguments) : fn(...args);
+// const curry = (fn, ...args) => args.length < fn.length ? (...rest) => curry(fn, ...args, ...rest) : fn(...args);
 
 function sumFn(a, b, c) {
   return a + b + c

@@ -12,6 +12,7 @@
     
     function changeUrl1() {
       window.history.pushState(null, null, './a.html');
+      history.back();
     }
     function changeUrl2() {
       window.history.replaceState(null, null, './b.html')

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./common.js"></script>
+  <script src="./hash.js"></script>
+  <script src="./history.js"></script>
+</head>
+<body>
+  <ul class="nav-list">
+    <li class="nav-item"><a onclick="router.push({name: 'monday'})">周一</a></li>
+    <li class="nav-item"><a onclick="router.push({name: 'tuesday', query: {name: 'suporka', age: '26'}})">周二</a></li>
+    <li class="nav-item"><a onclick="router.push({path: '/wednesday'})">周三</a></li>
+    <li class="nav-item"><a onclick="router.push({path: '/thursday', query: {name: 'suporka', age: '20'}})">周四</a></li>
+    <li class="nav-item"><a onclick="router.replace({name: 'friday'})">周五</a></li>
+  </ul>
+
+  <main>
+    <div class="main-content">
+      <div class="main-box" data-component-name="monday">monday</div>
+      <div class="main-box" data-component-name="tuesday">tuesday</div>
+      <div class="main-box" data-component-name="wednesday">wednesday</div>
+      <div class="main-box" data-component-name="thursday">thursday</div>
+      <div class="main-box" data-component-name="friday">friday</div>
+    </div>
+  </main>
+
+  <div class="nav-area">
+    <button class="nav-area-back" onclick="router.back();">后退</button>
+    <button class="nav-area-front" onclick="router.forward();">前进</button>
+    <button class="nav-area-front" onclick="router.go(-1);">go(-1)</button>
+    <button class="nav-area-front" onclick="router.push({path: '/monday', query: {name: 'suporka', age: '26'}});">
+      push path
+    </button>
+    <button class="nav-area-front" onclick="router.push({name: 'monday', query: {name: 'suporka', age: '26'}});">
+      push name
+    </button>
+
+    <button class="nav-area-front" onclick="router.replace({name: 'monday', query: {name: 'suporka', age: '18'}});">
+      replace
+    </button>
+  </div>
+  
+  <script>
+
+    class Router {
+      constructor(config) {
+        this._mode = config.mode || 'hash';
+        this._routes = config.routes;
+        if (this._mode === 'hash') {
+          this._router = new HashRouter(config);
+        } else {
+          this._router = new HistoryRouter(config);
+        }
+        this._router.init();
+      }
+      // 返回
+      back() {
+        this._router.back();
+      }
+      // 前进
+      forward() {
+        this._router.forward();
+      }
+      // 返回/前进
+      go(n) {
+        this._router.go(n);
+      }
+      // 路由跳转
+      push(options) {
+        this._router.push(options);
+      }
+      // 。。。
+      replace(options) {
+        this._router.replace(options);
+      }
+    }
+    var router = new Router({
+      mode: 'history',
+      routes: [{
+          path: '/monday',
+          name: 'monday',
+        },
+        {
+          path: '/tuesday',
+          name: 'tuesday',
+        },
+        {
+          path: '/wednesday',
+          name: 'wednesday',
+        },
+        {
+          path: '/thursday',
+          name: 'thursday',
+        },
+        {
+          path: '/friday',
+          name: 'friday',
+        },
+      ]
+    })
+  </script>
+</body>
+</html>
