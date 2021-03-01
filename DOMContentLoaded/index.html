@@ -8,9 +8,18 @@
       document.addEventListener('DOMContentLoaded', function() {
         console.log('DOMContentLoaded');
       })
+      window.addEventListener('load', function() {
+        console.log('load')
+      })
+      // 必须操作了页面才会触发，返回的信息会被浏览器默认提示覆盖
+      window.onbeforeunload = function() {
+        return '返回的信息会被浏览器默认提示覆盖？';
+      }
     </script>
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
   </head>
   <body>
+    <div>a</div>
+    <a href="#">ad</a>
   </body>
 </html>

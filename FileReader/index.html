@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FileReader</title>
+</head>
+<body>
+  <div class="app">
+    <input type="button" value="文件" id="btn">
+    <input type="file" id="file">
+  </div>
+
+  <script>
+    document.getElementById('btn').addEventListener('click', function() {
+      const files = document.getElementById('file').files[0];
+      console.log(files);
+
+      const reader = new FileReader();
+
+      reader.onload = function() {
+        console.log(reader)
+
+        // const a = document.createElement('a');
+
+        // a.href = reader.result;
+
+        // a.download = 'hahahahahhaha.txt';
+
+        // document.body.appendChild(a);
+
+        // a.click();
+
+        // a.remove();
+
+        const img = document.createElement('img');
+
+        img.src = URL.createObjectURL(reader.result);
+
+        img.onload = () => {
+          URL.revokeObjectURL(img.src);
+        };
+
+        document.body.appendChild(img);
+      }
+
+      reader.readAsArrayBuffer(files);
+    })
+  </script>
+</body>
+</html>

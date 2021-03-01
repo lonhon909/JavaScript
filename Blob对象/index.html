@@ -35,9 +35,9 @@
       const read = new FileReader();
       read.onload = function(res) {
         console.log(read.result)
-        // img.src = res.target.result
+        img.src = res.target.result
       }
-      read.readAsArrayBuffer(file);
+      read.readAsDataURL(file);
     }
   </script>
 </body>
