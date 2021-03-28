@@ -56,3 +56,26 @@ class Event {
     return this;
   }
 }
+
+const bus = new Event();
+
+function onMessage(cb, eventName) {
+  bus.on(eventName, (params) => {
+    console.log(params, '***')
+    cb(params);
+  }).on(eventName, () => {
+    console.log('1000')
+  });
+}
+
+function Emit(eventName, params) {
+  bus.emit(eventName, params);
+}
+
+onMessage((res) => {
+  console.log(res)
+}, 'aaa')
+
+setTimeout(() => {
+  Emit('aaa', { age: 18 })
+}, 2000)

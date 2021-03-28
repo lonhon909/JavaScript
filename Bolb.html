@@ -6,19 +6,22 @@
   <title>Document</title>
 </head>
 <body>
-  
-  <input type="file" id="file">
-  <img src="" alt="">
-
-
+  <form action="https://www.w3school.com.cn/demo/demo_form.asp" method="GET">
+    <input type="text" name="age" value="12" readonly />
+    <input type="text" name="key" value="77686" />
+    <input type="submit" value="提交" />
+  </form>
+  <button id="btn">btn</button>
+  </script>
   <script>
-    document.getElementById('file').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      const blob = new Blob([file], { type: 'image/png' });
-      document.querySelector('img').src = URL.createObjectURL(blob);
+    function fn() {
+      console.log('*')
+    }
+    const ff = throttle(fn, 1000, 1);
+    document.getElementById('btn').addEventListener('click', ff)
+    requestAnimationFrame(() => {
+      console.log('ll')
     })
-
-  
   </script>
 </body>
 </html>

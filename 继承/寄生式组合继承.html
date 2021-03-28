@@ -23,7 +23,7 @@
   // 将父类原型指向子类
   inheritPrototype(SubType, SuperType);
 
-  console.log('****', Object.getPrototypeOf(SubType.prototype) === SuperType.prototype)
+  // console.log('****', Object.getPrototypeOf(SubType.prototype) === SuperType.prototype)
 
   // 新增子类原型属性
   SubType.prototype.sayAge = function () {
@@ -31,9 +31,10 @@
   }
 
   var instance1 = new SubType("xyc", 23);
-  var instance2 = new SubType("lxy", 23);
+  // var instance2 = new SubType("lxy", 23);
+  console.log(instance1)
 
-  instance1.colors.push("2"); // ["red", "blue", "green", "2"]
-  instance1.colors.push("3"); // ["red", "blue", "green", "3"]
+  // instance1.colors.push("2"); // ["red", "blue", "green", "2"]
+  // instance1.colors.push("3"); // ["red", "blue", "green", "3"]
 
 </script>

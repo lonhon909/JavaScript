@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{margin: 0;padding: 0;}
+    .box {width: 0;height: 30px;background-color: red;}
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <button id="btn">btn</button>
+
+  <script>
+    /* 
+      该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
+
+      注意：若你想在浏览器下次重绘之前继续更新下一帧动画，那么回调函数自身必须再次调用window.requestAnimationFrame()
+    */
+    const box = document.querySelector('.box');
+    const btn = document.getElementById('btn');
+    let i = 0;
+    let width = 0;
+    btn.addEventListener('click', function() {
+      if (i % 2 === 0) {
+        requestAnimationFrame(play);
+      } else {
+        stop()
+      }
+      i++;
+    })
+    let id = null;
+    function play() {
+      id = requestAnimationFrame(() => {
+        box.style.width = `${width}px`;
+        width++;
+        play();
+      })
+    }
+    function stop() {
+      cancelAnimationFrame(id);
+    }
+  </script>
+</body>
+</html>

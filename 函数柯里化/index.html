@@ -20,8 +20,10 @@ console.log('sumFn.length', sumFn.length)
 
 var sum = curry(sumFn);
 
-console.log(sum(1)(2, 3))
-console.log(sum(1, 2)(3))
-console.log(sum(1)(2)(3))
+const a = sum()
+const b = a(1)
+const c = b(20);
+const d = c(3);
+console.log(d)
 
 </script>

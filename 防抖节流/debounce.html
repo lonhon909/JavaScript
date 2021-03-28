@@ -104,7 +104,7 @@
             container2.innerHTML = num2++;
         };
         const mouse = debounce(count2, 1000, true);
-        container2.onmousemove = mouse; // 触发延时执行，100ms内再次触发，立即重置计算延时时间
+        container2.onclick = mouse; // 触发延时执行，100ms内再次触发，立即重置计算延时时间
     </script>
 </body>
 </html>
